@@ -9,11 +9,10 @@ public class Cliente {
     private String phone;
     private boolean isActive = false;
 
-    public Cliente(String name, String email, String phone, boolean isActive) {
+    public Cliente(String name, String email, String phone) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.isActive = isActive;
     }
 
 }

@@ -17,19 +17,17 @@ import com.example.demo.service.ClienteService;
 @RequestMapping ("/clientes")
 public class ClienteController {
     
-    @Autowired 
+    @Autowired(required = false) 
     private ClienteService clienteService;
+
     
     @GetMapping()
     @ResponseBody 
     public String listarClientes() {
-        return "clientes";
+        Cliente cliente1 = new Cliente( "Carlos Silva", "jaa","ssa");
+        clienteService.ativarCliente(cliente1);
+        return "Clientes listados com sucesso!";
     }
 
-    @GetMapping ("/listar")
-    @ResponseBody
-    public ResponseEntity<List<Cliente>> listar() {
-        List<Cliente> clientes = clienteService.listarClientes();
-        return ResponseEntity.status(HttpStatus.OK).body(clientes);
-    }
+    
 }
