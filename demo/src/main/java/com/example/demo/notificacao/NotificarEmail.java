@@ -2,12 +2,14 @@ package com.example.demo.notificacao;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.enumerador.NivelUrgencia;
 import com.example.demo.model.Cliente;
 
 @Component 
+@Profile("dev")
 @TipoQualificador(value = NivelUrgencia.EMAIL)
 public class NotificarEmail implements Notificador  {
    // @Override 
@@ -17,7 +19,7 @@ public class NotificarEmail implements Notificador  {
     
     public  void enviarNotificacao(Cliente cliente,String mensagem) {
         // Lógica para enviar email para o cliente
-        System.out.println("enviando msg do EMAIL");
+        System.out.println("enviando msg do EMAIL (EM DEV)");
     }
 
     public String getSmtpServer() {

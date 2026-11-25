@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +15,32 @@ import com.example.demo.notificacao.NotificarEmail;
 import com.example.demo.notificacao.TipoQualificador;
 import com.example.demo.respository.ClienteRespository;
 
- @Component 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
+//@Component 
 public class ClienteService {
 
-    
+/* 
+forma 1
     @Autowired 
-    @TipoQualificador (NivelUrgencia.SMS)
+    @TipoQualificador (NivelUrgencia.EMAIL)
     private  Notificador notificador;
-   // private final ClienteRespository clienteRespository;
-
-    
     public void ativarCliente(Cliente cliente) {
         cliente.setActive(true);
-            notificador.enviarNotificacao(cliente, "oi");   
+        notificador.enviarNotificacao(cliente, "oi");   
+        // dizer para o container que o cliente ta alivo
     }
-    // public List<Cliente> listarClientes() {
-    //     return clienteRespository.listarClientes();
-    // }
+*/    
+
+//forma 2
+
+@Autowired 
+private  ApplicationEventPublisher eventPublisher;
+
+public void ativarCliente(Cliente cliente){
+    cliente.setActive(true);
+    eventPublisher.publishEvent(new ClienteAtivoEvent(cliente));
+}
+ 
 } 
